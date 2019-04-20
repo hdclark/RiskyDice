@@ -31,6 +31,30 @@ Expected losses, winners, and the win rate are reported.
 ![Battle simulation](images/battle.png)
 
 
+# Caveats
+
+Battle simulators assume that:
+
+  1. The number of dice used by both attacker and defender are decided prior to
+     rolling. (This rule is described as the 'original' and 'British' and
+     'American' and 'updated' rule, in contrast with the 'Dutch' rule in which
+     the defender chooses to roll each die separately.)
+
+  2. Both attacker and defender use the maximum number of dice they possibly
+     can (which is advantageous given the prior assumption).
+
+  3. Battles are not terminated early.
+
+
+The accuracy of simulations has been compared with the following publication to
+ensure accuracy.
+
+    Osborne, Jason A. "Markov chains for the RISK board game revisited."
+    Mathematics magazine 76.2 (2003): 129-135.
+    https://doi.org/10.1080/0025570X.2003.11953165
+
+However, the implementation should not be relied on without scrutiny.
+
 
 # License and Copying
 

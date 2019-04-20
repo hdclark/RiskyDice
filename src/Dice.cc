@@ -131,9 +131,15 @@ int main(int, char**){
 */
 
 
+    // This routine simulates a single attack (not a battle).
     // This routine returns the remaining number of units in each army.
     // The attacker gets N_a dice (3, 2, or 1) and the defender gets N_d dice (2 or 1).
     auto sim_losses = [&](int N_a, int N_d) -> std::pair<int, int> { 
+
+        if( (N_a < 1) || (3 < N_a)
+        ||  (N_d < 1) || (2 < N_d) ){
+            throw std::invalid_argument("Attack simulation routine given invalid unit counts.");
+        }
 
         std::vector<int> a; // Attacker rolls.
         std::vector<int> d; // Defender rolls.
@@ -153,7 +159,7 @@ int main(int, char**){
         }
         if( (a.size() >= 2) 
         &&  (d.size() >= 2) ){
-            if(a[1] > d[1] ){
+            if(a.at(1) > d.at(1) ){
                 ++loss_d;
             }else{
                 ++loss_a;
@@ -175,7 +181,7 @@ int main(int, char**){
 
             // Determine the number of units that will participate in the next battle.
             const auto B_a = std::min( N_a, 3 );
-            const auto B_d = std::min( N_d, 3 );
+            const auto B_d = std::min( N_d, 2 );
 
             // Subtract these units from the total army sizes.
             N_a -= B_a;
@@ -232,7 +238,7 @@ int main(int, char**){
 
                 // Determine the number of units that will participate in the next battle.
                 const auto B_a = std::min( N_a, 3 );
-                const auto B_d = std::min( N_d, 3 );
+                const auto B_d = std::min( N_d, 2 );
 
                 // Subtract these units from the total army sizes.
                 N_a -= B_a;
@@ -269,11 +275,14 @@ int main(int, char**){
         ss << "Expected losses" << std::endl;
         ss << "  (" << N_sims << " sims)" << std::endl;
         ss << std::endl;
+        /*
         if(a_win_ratio > d_win_ratio){
             ss << "Attacker wins (" << std::setprecision(1) << std::fixed << a_win_ratio * 100.0 << "%)" << std::endl;
         }else{
             ss << "Defender wins (" << std::setprecision(1) << std::fixed << d_win_ratio * 100.0 << "%)" << std::endl;
         }
+        */
+        ss << "Attacker win: " << std::setprecision(1) << std::fixed << a_win_ratio * 100.0 << "%" << std::endl;
         ss << "Attacker loses: " << std::setprecision(2) << std::fixed << expected_loss_a << std::endl;
         ss << "Defender loses: " << std::setprecision(2) << std::fixed << expected_loss_d << std::endl;
 
