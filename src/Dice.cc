@@ -55,7 +55,8 @@ int main(int, char**){
     //Attempt to load fonts. We should try a few different files, and include a back-up somewhere accessible...
     sf::Font afont;
     if( !afont.loadFromFile("/usr/share/fonts/TTF/cmr10.ttf")
-    &&  !afont.loadFromFile("/usr/share/fonts/truetype/freefont/FreeMono.ttf") ){
+    &&  !afont.loadFromFile("/usr/share/fonts/truetype/freefont/FreeMono.ttf")
+    &&  !afont.loadFromFile("/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf") ){
         throw std::runtime_error("Unable to find a suitable font file");
     }
 
